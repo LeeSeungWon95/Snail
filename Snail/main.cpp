@@ -48,6 +48,8 @@ void SetBoard()
 	int Y = 0;
 	int X = 0;
 	int Dir = RIGHT;
+	int dY[] = { 0, 1, 0, -1 };
+	int dX[] = { 1, 0, -1, 0 };
 	int Number = 1;
 	while (true)
 	{
@@ -59,25 +61,8 @@ void SetBoard()
 
 		int NewY = 0;
 		int NewX = 0;
-		switch (Dir)
-		{
-		case RIGHT:
-			NewY = Y;
-			NewX = X + 1;
-			break;
-		case DOWN:
-			NewY = Y + 1;
-			NewX = X;
-			break;
-		case LEFT:
-			NewY = Y;
-			NewX = X - 1;
-			break;
-		case UP:
-			NewY = Y - 1;
-			NewX = X;
-			break;
-		}
+		NewY = Y + dY[Dir];
+		NewX = X + dX[Dir];
 
 		if (CanGo(NewY, NewX))
 		{
@@ -87,21 +72,7 @@ void SetBoard()
 		}
 		else
 		{
-			switch (Dir)
-			{
-			case RIGHT:
-				Dir = DOWN;
-				break;
-			case DOWN:
-				Dir = LEFT;
-				break;
-			case LEFT:
-				Dir = UP;
-				break;
-			case UP:
-				Dir = RIGHT;
-				break;
-			}
+			Dir = (Dir + 1) % 4;
 		}
 	}
 }
